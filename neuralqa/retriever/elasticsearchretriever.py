@@ -67,17 +67,29 @@ class ElasticSearchRetriever(Retriever):
         #     search_query["_source"] = {"includes": [self.body_field]}
 
         try:
+            print("$$$$$$$$$$SEARCH QUERY ")
+            print(search_query)
+            print("$$$$$$$$$$ END  QUERY ")
+
             query_result = self.es.search(
                 index=index_name, body=search_query)
 
             # RelSnip: for each document, we concatenate all
             # fragments in each document and return as the document.
+            print ("$$$$$$$$$ ARE REZULTATEEEEEE  #########################")
             highlights = [" ".join(hit["highlight"][self.body_field])
                           for hit in query_result["hits"]["hits"] if "highlight" in hit]
             docs = [parse_field_content(self.body_field, hit["_source"])
                     for hit in query_result["hits"]["hits"] if "_source" in hit]
+            print ("$$$$$$$$$ ARE REZULTATEEEEEE  #########################")
+
+            docs_ids = []
+            for hit in query_result["hits"]["hits"]:
+                docs_ids.append(hit["_id"])
             took = query_result["took"]
-            results = {"took": took,  "highlights": highlights, "docs": docs}
+            print("&&&&&&&&&&&&&&&&&&&&&  DOC IDS ")
+            print(docs_ids)
+            results = {"took": took,  "highlights": highlights, "docs": docs, "docs_ids": docs_ids}
 
         except (ConnectionRefusedError, NotFoundError, Exception) as e:
             status = False

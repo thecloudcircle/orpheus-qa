@@ -38,7 +38,13 @@ class Handler:
             # switch to the selected model and retriever
             self.reader_pool.selected_model = params.reader
             self.retriever_pool.selected_retriever = params.retriever
-
+            ######
+            #
+            #sdadada
+            #dsaasdadad
+            #aadada
+            #adasdadad
+            #dsadada
             # print(params.query + " ".join(params.expansionterms))
             # answer question based on provided context
             if (params.retriever == "none" or self.retriever_pool.selected_retriever == None):
@@ -57,7 +63,9 @@ class Handler:
                 query_results = self.retriever_pool.retriever.run_query(params.retriever, retriever_query,
                                                                         max_documents=params.max_documents, fragment_size=params.fragment_size,
                                                                         relsnip=params.relsnip, num_fragments=num_fragments, highlight_tags=False)
-                # print(query_results)
+                print("************* RESULTS FROM  SEARCH **********")                                  
+                doc_ids = query_results["docs_ids"]
+                print(doc_ids)
                 if (query_results["status"]):
                     # if relsnip is not enabled, read the entire document ... this is super slow
                     docs = query_results["highlights"] if params.relsnip else query_results["docs"]
@@ -75,6 +83,7 @@ class Handler:
                     answer_holder, key=lambda k: k['probability'], reverse=True)
             elapsed_time = time.time() - start_time
             response = {"answers": answer_holder,
+                        "docs_ids": doc_ids,
                         "took": elapsed_time}
             return response
 

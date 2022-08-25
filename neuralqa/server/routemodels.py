@@ -25,6 +25,7 @@ class Answer(BaseModel):
     expander: Optional[str] = None
     expansionterms: Optional[list] = None
     retriever: Optional[str] = "manual"
+    documents_ids: Optional[list] = None
 
 
 class Explanation(BaseModel):
