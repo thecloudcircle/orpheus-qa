@@ -9,7 +9,7 @@ import logging
 import traceback
 
 logger = logging.getLogger(__name__)
-region = 'us-east-2'
+region = 'us-central-1'
 service = 'es'
 
 

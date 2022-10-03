@@ -55,29 +55,20 @@ ui:
 
 retriever:
   title: Retriever
-  selected: "none"
+  selected: "free-text"
 
   options:
     - name: None
       value: "none"
       type: "none"
-    - name: Abstracts
-      value: pubmed_abstracts
+    - name: free-text
+      value: free-text
       type: elasticsearch
       connection:
-        host: search-orpheus-pubmed-mfcsldctpmoxvooou3g6dimjbi.us-east-2.es.amazonaws.com
+        host: search-bluepallet-poc-yb6yxn4kt3xvs6qmszsnugvfl4.eu-central-1.es.amazonaws.com
         port: 443
-        username: "orpheus"
-        password: "WandaVision2021!"
-        body_field: "abstract"
-    - name: Orpheus
-      value: orpheus
-      type: elasticsearch
-      connection:
-        host: search-orpheus-pubmed-mfcsldctpmoxvooou3g6dimjbi.us-east-2.es.amazonaws.com
-        port: 443
-        username: "orpheus"
-        password: "WandaVision2021!"
+        username: "bluepallet_poc"
+        password: "Bluepallet2021!"
         body_field: "text"
   readtopn: 0
 
@@ -118,7 +109,7 @@ expander:
 
 # optional selection of samples to show in the UI
 samples:
-  - question: "what is the goal of the fourth amendment?"
+  - question: "what is VORANOL™ 4703 Polyether Polyol"
     context:
       The Fourth Amendment of the U.S. Constitution provides that the right of
       the people to be secure in their persons, houses, papers, and effects, against
