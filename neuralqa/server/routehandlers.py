@@ -63,15 +63,14 @@ class Handler:
 
                     for i, doc in enumerate(docs):
                         doc = doc.replace("\n", " ")
-                        answers = self.reader_pool.model.answer_question(
-                            params.query, doc, stride=params.tokenstride)
+                        answers = self.reader_pool.model.answer_question(params.query, doc, stride=params.tokenstride)
                         for answer in answers:
                             answer["index"] = i
+                            answer["document"] = query_results["source"]["hits"]["hits"][i]
                             answer_holder.append(answer)
 
                 # sort answers by probability
-                answer_holder = sorted(
-                    answer_holder, key=lambda k: k['probability'], reverse=True)
+                answer_holder = sorted(answer_holder, key=lambda k: k['probability'], reverse=True)
             elapsed_time = time.time() - start_time
             response = {"answers": answer_holder,
                         "took": elapsed_time}
